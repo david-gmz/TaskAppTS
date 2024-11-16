@@ -128,7 +128,7 @@ export default function Input({ isTextarea, label, props = {} }: InputProps) {
 
 </details>
 
-<details open><summary>More on spread props</summary>
+<details><summary>More on spread props</summary>
  
 ##  Using `onClick` in a `<button>`
 ```ts
@@ -192,7 +192,20 @@ Using label:
 ```
 Both work, but the second option (label) is more explicit for text-only buttons.
 </details>
+<details open><summary>Using enum in action</summary>
+ 
+##  Criteria of using enum
+Using an enum for ActionType in reducers can make our code clearer and safer by:
 
+1. **Providing a single source of truth:** The enum creates a set list of possible action types, making it easy to update action names in one place. It avoids typos that might happen if you used plain strings each time and provides TypeScript's auto-complete.
+
+2. **Improving type safety:** When using enum with a union type (like Action), TypeScript can catch when an invalid action type is passed. Without an enum, you'd rely on string literals, which are more error-prone.
+
+3. **Better readability:** enum values are descriptive, improving code readability when you use them in a switch statement or within the reducer. This makes it immediately clear what actions the reducer supports.
+
+In this setup, ActionType is reusable if you expand the app, ensuring consistency in any part of the app that uses these actions.
+
+</details>
 ---
 
 [^1]: This course can be found in Udemy website.

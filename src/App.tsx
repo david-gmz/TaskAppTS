@@ -4,18 +4,37 @@ import NoProjectSelected from "./components/NoProjectSelected";
 import Sidebar from "./components/Sidebar";
 import { InitState } from "./models";
 
+enum ActionType {
+    START_ADD_PROJECT = "START_ADD_PROJECT"
+}
+
+type Action = {type: ActionType.START_ADD_PROJECT;}
+
+function projectsReducer(state: InitState, action: Action) {
+  switch (action.type) {
+    case ActionType.START_ADD_PROJECT:
+      return {
+          ...state,
+          selectedProjectId: null
+      };
+  
+    default:
+      return state;
+  }
+ }
+
 function App() {
     const initialState: InitState = {
         selectedProjectId: undefined,
         projects: []
     };
-    const [stateProjects, setStateProjects] =
-        React.useState<InitState>(initialState);
+  
+  const [stateProjects, dispatchProjects] = React.useReducer(projectsReducer, initialState);
+  
     const handleStartAddProject = () => {
-        setStateProjects(prevState => ({
-            ...prevState,
-            selectedProjectId: null
-        }));
+      dispatchProjects({
+          type: ActionType.START_ADD_PROJECT
+        })
     };
     let content;
     if (stateProjects.selectedProjectId === undefined)
