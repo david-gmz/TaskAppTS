@@ -16,4 +16,17 @@ interface InputPropsInput extends InputPropsBase {
 
 type InputProps = InputPropsTextArea | InputPropsInput;
 
-export type { InputProps };
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+    label?: string;
+}
+
+type OnStartAdd = {
+    onStartAddProject: () => void;
+}
+// type ButtonChildrenProps = ButtonProps | ChildrenProp
+interface InitState {
+    selectedProjectId: undefined | null;
+    projects: [];
+}
+
+export type { InputProps, InitState, ButtonProps, OnStartAdd };

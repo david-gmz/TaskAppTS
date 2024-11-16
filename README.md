@@ -3,7 +3,7 @@
 ## Intro
 The main purpose of this project based on one of the lessons in the course "React - The Complete Guide"[^1] *by Maximilian Schwarzmuller* is to practice TypeScript. In addition *Context API*, *useReducer* and *Redux*, three popular ways of state managment.
 
-<details open><summary>Define `{...props}` type</summary>
+<details><summary>Define `{...props}` type</summary>
  
 ## How to define the spread property in a component
 ### Narrowing came to the rescue
@@ -126,6 +126,71 @@ export default function Input({ isTextarea, label, props = {} }: InputProps) {
 
 ***TypeScript's type narrowing** requires clear distinctions in code flow, and unions don’t automatically propagate to props when destructuring. By explicitly casting and separating the logic, we ensure correctness.*
 
+</details>
+
+<details open><summary>More on spread props</summary>
+ 
+##  Using `onClick` in a `<button>`
+```ts
+import React from "react";
+
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  label: string;
+}
+
+export default function Button({ label, ...props }: ButtonProps) {
+  return (
+    <button {...props}>
+      {label}
+    </button>
+  );
+}
+```
+###  Explanation:
+By extending `React.ButtonHTMLAttributes<HTMLButtonElement>`, the Button component automatically supports all valid attributes of a `<button>`, such as onClick, disabled, type, etc.
+ 
+### TypeScript Validation
+1. **TypeScript ensures that:**
+
+   - `onClick` is properly typed as <br>
+   `(event: React.MouseEvent<HTMLButtonElement>) => void.`
+   - Other invalid attributes are caught. For example, passing an invalid attribute like rows to a `<button>` would result in an error:
+```ts
+<Button label="Invalid Button" rows={3} /> // ❌ Error: 'rows' does not exist on type 'ButtonHTMLAttributes<HTMLButtonElement>'
+```
+### Key Takeaways
+   - onClick is an intrinsic attribute of `<button>`, and we don’t need to define it explicitly in our interface when extending `React.ButtonHTMLAttributes<HTMLButtonElement>`.
+   - Using TypeScript’s intrinsic attributes for HTML elements ensures our props are aligned with the standard DOM attributes.
+
+### Why Use label Instead of children?
+1. **Semantic Clarity:**
+   - label explicitly communicates that the string is the button's text content.
+   - children is more generic and implies flexibility (e.g., the ability to nest other components).
+2. **Consistency:**
+   - If your component has other structured props (like icon, variant, etc.), using label keeps the API clear and avoids ambiguity:
+```ts
+<Button label="Click Me" icon={<Icon />} variant="primary" />;
+```
+3. **Flexibility for Other Features:**
+   - If we later decide to allow additional customizations (like an optional icon or aria-label for accessibility), having a dedicated label makes it easier to manage:
+```ts
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  label: string; // Text shown on the button
+  icon?: React.ReactNode; // Optional icon to display
+}
+
+<Button label="Click Me" icon={<Icon />} />;
+```
+### Comparison
+Using children:
+```ts
+<Button onClick={() => alert("Clicked!")}>Click Me</Button>;
+```
+Using label:
+```ts
+<Button onClick={() => alert("Clicked!")} label="Click Me" />;
+```
+Both work, but the second option (label) is more explicit for text-only buttons.
 </details>
 
 ---
