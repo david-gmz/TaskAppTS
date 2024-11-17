@@ -4,7 +4,9 @@ import type {
     ButtonProps,
     OnStartAdd
 } from "./propsTypes";
-import type { ActionType, Action } from "./actionTypes";
+import { ActionType } from "./actionTypes";
+import type { Action } from "./actionTypes";
 
 export type { InputProps, InitState, ButtonProps, OnStartAdd };
-export type { ActionType, Action };
+export { ActionType };
+export type { Action };

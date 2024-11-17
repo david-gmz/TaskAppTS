@@ -4,4 +4,5 @@ enum ActionType {
 
 type Action = { type: ActionType.START_ADD_PROJECT };
 
-export type { ActionType, Action };
+export { ActionType };
+export type {Action}

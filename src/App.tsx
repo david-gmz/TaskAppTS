@@ -2,13 +2,7 @@ import React from "react";
 import NewProject from "./components/NewProject";
 import NoProjectSelected from "./components/NoProjectSelected";
 import Sidebar from "./components/Sidebar";
-import { InitState } from "./models";
-
-enum ActionType {
-    START_ADD_PROJECT = "START_ADD_PROJECT"
-}
-
-type Action = {type: ActionType.START_ADD_PROJECT;}
+import { InitState, ActionType, Action } from "./models";
 
 function projectsReducer(state: InitState, action: Action) {
   switch (action.type) {
