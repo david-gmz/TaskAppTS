@@ -2,7 +2,7 @@ import React from "react";
 import NewProject from "./components/NewProject";
 import NoProjectSelected from "./components/NoProjectSelected";
 import Sidebar from "./components/Sidebar";
-import { InitState } from "./models";
+import { InitState, ProjectProps } from "./models";
 
 function App() {
     const initialState: InitState = {
@@ -11,18 +11,35 @@ function App() {
     };
     const [stateProjects, setStateProjects] =
         React.useState<InitState>(initialState);
+
     const handleStartAddProject = () => {
-        setStateProjects(prevState => ({
-            ...prevState,
+        setStateProjects(prevStateProjects => ({
+            ...prevStateProjects,
             selectedProjectId: null
         }));
     };
+
+    const handleAddProject = (projectData: ProjectProps) => {
+        setStateProjects((prevStateProjects: InitState) => {
+            const newProject = {
+                ...projectData,
+                id: Date.now()
+            };
+            return {
+                ...prevStateProjects,
+                projects: [...prevStateProjects.projects, newProject]
+            };
+        });
+    };
+    console.log("StateProjects", stateProjects);
+
     let content;
     if (stateProjects.selectedProjectId === undefined)
         content = (
             <NoProjectSelected onStartAddProject={handleStartAddProject} />
         );
-    else if (stateProjects.selectedProjectId === null) content = <NewProject />;
+    else if (stateProjects.selectedProjectId === null)
+        content = <NewProject onAddProject={handleAddProject} />;
     return (
         <main className="h-screen my-8 flex gap-8">
             <Sidebar onStartAddProject={handleStartAddProject} />

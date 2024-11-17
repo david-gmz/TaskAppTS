@@ -10,7 +10,7 @@ interface InputPropsTextArea extends InputPropsBase {
 }
 
 interface InputPropsInput extends InputPropsBase {
-    isTextarea?: false;
+    isTextarea: false;
     props?: React.InputHTMLAttributes<HTMLInputElement>;
 }
 
@@ -22,11 +22,27 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 
 type OnStartAdd = {
     onStartAddProject: () => void;
+};
+
+interface ProjectProps {
+    title: string;
+    description: string;
+    dueDate: string;
 }
-// type ButtonChildrenProps = ButtonProps | ChildrenProp
 interface InitState {
     selectedProjectId: undefined | null;
-    projects: [];
+    projects: ProjectProps[];
 }
 
-export type { InputProps, InitState, ButtonProps, OnStartAdd };
+interface NewProjectProps {
+    onAddProject: (p:ProjectProps) => void;
+}
+
+export type {
+    InputProps,
+    InitState,
+    ButtonProps,
+    OnStartAdd,
+    ProjectProps,
+    NewProjectProps
+};
