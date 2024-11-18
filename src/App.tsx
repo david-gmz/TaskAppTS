@@ -18,6 +18,7 @@ function projectsReducer(state: InitState, action: Action) {
             };
             return {
                 ...state,
+                selectedProjectId: undefined,
                 projects: [...state.projects, newProject]
             };
       }
@@ -57,7 +58,7 @@ console.log('StateProjects: ', stateProjects);
     else if (stateProjects.selectedProjectId === null) content = <NewProject onAddProject={handleAddProject} />;
     return (
         <main className="h-screen my-8 flex gap-8">
-            <Sidebar onStartAddProject={handleStartAddProject} />
+            <Sidebar onStartAddProject={handleStartAddProject} projectsList={stateProjects.projects} />
             {content}
         </main>
     );

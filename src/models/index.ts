@@ -2,7 +2,7 @@ import type {
     InputProps,
     InitState,
     ButtonProps,
-    OnStartAdd,
+    SidebarProps,
     ProjectProps,
     NewProjectProps
 } from "./propsTypes";
@@ -13,7 +13,7 @@ export type {
     InputProps,
     InitState,
     ButtonProps,
-    OnStartAdd,
+    SidebarProps,
     ProjectProps,
     NewProjectProps
 };

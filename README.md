@@ -1,7 +1,7 @@
 # React TS Task Project <br> (TypeScript Journey Part II)
 
 ## Intro
-The main purpose of this project based on one of the lessons in the course "React - The Complete Guide"[^1] *by Maximilian Schwarzmuller* is to practice TypeScript. In addition *Context API*, *useReducer* and *Redux*, three popular ways of state managment.
+The main purpose of this project based on one of the lessons in the course "React - The Complete Guide"[^1] *by Maximilian Schwarzmüller* is to practice TypeScript. In addition *Context API*, *useReducer* and *Redux*, three popular ways of state managment.
 
 <details><summary>Define `{...props}` type</summary>
  
