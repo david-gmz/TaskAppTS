@@ -20,15 +20,17 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     label?: string;
 }
 
-type OnStartAdd = {
-    onStartAddProject: () => void;
-};
 
 interface ProjectProps {
     title: string;
     description: string;
     dueDate: string;
+    id:number
 }
+interface SidebarProps {
+    onStartAddProject: () => void;
+    projectsList: ProjectProps[];
+};
 interface InitState {
     selectedProjectId: undefined | null;
     projects: ProjectProps[];
@@ -42,7 +44,7 @@ export type {
     InputProps,
     InitState,
     ButtonProps,
-    OnStartAdd,
+    SidebarProps,
     ProjectProps,
     NewProjectProps
 };
