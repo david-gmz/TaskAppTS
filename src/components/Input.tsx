@@ -1,8 +1,10 @@
 import React from "react";
-
 import { InputProps } from "../models";
 
-export default function Input({ isTextarea, label, props = {} }: InputProps) {
+const Input = React.forwardRef<
+    HTMLTextAreaElement | HTMLInputElement,
+    InputProps
+>(function Input({ isTextarea, label, props = {} }: InputProps, ref) {
     const classesP = "flex flex-col gap-1 my-4";
     const classesLabel = "text-sm font-bold uppercase text-stone-500";
     const classesInput =
@@ -14,7 +16,11 @@ export default function Input({ isTextarea, label, props = {} }: InputProps) {
         return (
             <p className={classesP}>
                 <label className={classesLabel}>{label}</label>
-                <textarea className={classesInput} {...textareaProps} />
+                <textarea
+                    ref={ref as React.Ref<HTMLTextAreaElement>}
+                    className={classesInput}
+                    {...textareaProps}
+                />
             </p>
         );
     } else {
@@ -23,8 +29,14 @@ export default function Input({ isTextarea, label, props = {} }: InputProps) {
         return (
             <p className={classesP}>
                 <label className={classesLabel}>{label}</label>
-                <input className={classesInput} {...inputProps} />
+                <input
+                    ref={ref as React.Ref<HTMLInputElement>}
+                    className={classesInput}
+                    {...inputProps}
+                />
             </p>
         );
     }
-}
+});
+
+export default Input;

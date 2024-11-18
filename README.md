@@ -192,7 +192,7 @@ Using label:
 ```
 Both work, but the second option (label) is more explicit for text-only buttons.
 </details>
-<details open><summary>Using enum in action</summary>
+<details><summary>Using enum in action</summary>
  
 ##  Criteria of using enum
 Using an enum for ActionType in reducers can make our code clearer and safer by:
@@ -205,6 +205,104 @@ Using an enum for ActionType in reducers can make our code clearer and safer by:
 
 In this setup, ActionType is reusable if you expand the app, ensuring consistency in any part of the app that uses these actions.
 
+</details>
+<details open><summary>Typing forwardRef in React</summary>
+ 
+## Properly type our React.forwardRef function for Input
+### handle the ref argument
+So starting with this part of the Input component:
+```ts
+const Input = React.forwardRef(function Input({ isTextarea, label, props = {} }: InputProps, ref) {
+    //code...
+    <textarea ref={ref} className={classesInput} {...textareaProps} />
+    //more code...
+    <input ref={ref} className={classesInput} {...inputProps} />
+    })
+```
+ To properly type our `React.forwardRef` function for `Input`, we need to handle the ref argument and its typing. Since ref will either point to a textarea or an input element based on the `isTextarea` prop, you'll need to define a generic type that accommodates both.
+
+Here’s the updated and typed `React.forwardRef` implementation:
+```ts
+// models.read-the-docs
+interface InputPropsBase {
+    label: string;
+}
+
+interface InputPropsTextArea extends InputPropsBase {
+    isTextarea: true;
+    props?: React.TextareaHTMLAttributes<HTMLTextAreaElement>;
+}
+
+interface InputPropsInput extends InputPropsBase {
+    isTextarea: false;
+    props?: React.InputHTMLAttributes<HTMLInputElement>;
+}
+
+type InputProps = InputPropsTextArea | InputPropsInput;
+
+// Input.tsx
+const Input = React.forwardRef<
+    HTMLTextAreaElement | HTMLInputElement,
+    InputProps
+>(function Input({ isTextarea, label, props = {} }: InputProps, ref) {
+  //code...
+    <textarea
+        ref={ref as React.Ref<HTMLTextAreaElement>}
+        className={classesInput}
+        {...textareaProps}
+    />
+    //more code...
+    <input
+        ref={ref as React.Ref<HTMLInputElement>}
+        className={classesInput}
+        {...inputProps}
+    />
+    })
+```
+### Key Changes and Explanation:
+1. **ForwardRef Type:**
+   - The `React.forwardRef` generic type is defined as `<HTMLTextAreaElement | HTMLInputElement, InputProps>`.
+   - This ensures the ref can point to either an HTMLTextAreaElement or an `HTMLInputElement`, based on `isTextarea`.
+2. **Casting ref:**
+   - Inside the conditional branches, the ref is cast to the appropriate type using `React.Ref<HTMLTextAreaElement>` or `React.Ref<HTMLInputElement>`.
+3. **Fallback for props:**
+   - The props property in InputProps is still optional and defaults to an empty object ({}).
+### Usage:
+When consuming the Input component with a ref, TypeScript will correctly infer the type based on the isTextarea prop:
+```ts
+// NewProject.tsx
+import React from "react";
+import Input from "./Input";
+
+export default function NewProject() {
+
+    const title = React.useRef<HTMLInputElement>(null);
+    const description = React.useRef<HTMLTextAreaElement>(null);
+    const dueDate = React.useRef<HTMLInputElement>(null);
+     return (
+      // code component
+       <Input
+                    ref={title}
+                    isTextarea={false}
+                    label="Title"
+                    props={{ type: "text", placeholder: "Enter text" }}
+                />
+                <Input
+                    ref={description}
+                    label="Description"
+                    props={{ placeholder: "Enter your description" }}
+                    isTextarea
+                />
+                <Input
+                    ref={dueDate}
+                    isTextarea={false}
+                    label="Due Date"
+                    props={{ type: "date" }}
+                />
+      //more code...
+     )
+   }
+ ```
 </details>
 ---
 
