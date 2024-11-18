@@ -2,7 +2,7 @@ import React from "react";
 import NewProject from "./components/NewProject";
 import NoProjectSelected from "./components/NoProjectSelected";
 import Sidebar from "./components/Sidebar";
-import { InitState, ProjectProps } from "./models";
+import { InitState, ProjectFieldsProps } from "./models";
 
 function App() {
     const initialState: InitState = {
@@ -19,7 +19,7 @@ function App() {
         }));
     };
 
-    const handleAddProject = (projectData: ProjectProps) => {
+    const handleAddProject = (projectData: ProjectFieldsProps) => {
         setStateProjects((prevStateProjects: InitState) => {
             const newProject = {
                 ...projectData,
