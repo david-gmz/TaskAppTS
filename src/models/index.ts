@@ -3,8 +3,9 @@ import type {
     InitState,
     ButtonProps,
     SidebarProps,
-    ProjectProps,
-    NewProjectProps
+    ProjectFieldsProps,
+    NewProjectProps,
+    ModalProps
 } from "./propsTypes";
 import { ActionType } from "./actionTypes";
 import type { Action } from "./actionTypes";
@@ -14,8 +15,9 @@ export type {
     InitState,
     ButtonProps,
     SidebarProps,
-    ProjectProps,
-    NewProjectProps
+    ProjectFieldsProps,
+    NewProjectProps,
+    ModalProps
 };
 export { ActionType };
 export type { Action };

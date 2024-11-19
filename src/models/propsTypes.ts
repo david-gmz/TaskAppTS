@@ -24,27 +24,38 @@ interface SidebarProps {
     onStartAddProject: () => void;
     projectsList: ProjectProps[]
 };
-// type ButtonChildrenProps = ButtonProps | ChildrenProp
-interface ProjectProps {
-    title: string;
-    description: string;
-    dueDate: string;
-    id:number
-}
 interface InitState {
     selectedProjectId: undefined | null;
     projects: ProjectProps[];
 }
-
-interface NewProjectProps {
-    onAddProject: (p: ProjectProps) => void;
+interface ProjectFieldsProps {
+    title: string;
+    description: string;
+    dueDate: string;
 }
 
+interface ProjectProps extends ProjectFieldsProps {
+    id: number;
+}
+
+interface NewProjectProps {
+    onAddProject: (p: ProjectFieldsProps) => void;
+}
+
+type ChildrenRN = {
+    children: React.ReactNode
+}
+type ButtonCaption = {
+    buttonCaption: string
+}
+
+type ModalProps = ChildrenRN & ButtonCaption;
 export type {
     InputProps,
     InitState,
     ButtonProps,
     SidebarProps,
     NewProjectProps,
-    ProjectProps
+    ProjectFieldsProps,
+    ModalProps
 };

@@ -1,4 +1,4 @@
-import { ProjectProps } from "./propsTypes";
+import { ProjectFieldsProps } from "./propsTypes";
 
 enum ActionType {
     START_ADD_PROJECT = "START_ADD_PROJECT",
@@ -7,7 +7,7 @@ enum ActionType {
 
 type Action =
     | { type: ActionType.START_ADD_PROJECT }
-    | { type: ActionType.ADD_PROJECT; payload: ProjectProps };
+    | { type: ActionType.ADD_PROJECT; payload: ProjectFieldsProps };
 
 export { ActionType };
 export type { Action };

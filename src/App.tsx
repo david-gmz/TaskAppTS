@@ -2,7 +2,7 @@ import React from "react";
 import NewProject from "./components/NewProject";
 import NoProjectSelected from "./components/NoProjectSelected";
 import Sidebar from "./components/Sidebar";
-import { InitState, ActionType, Action, ProjectProps } from "./models";
+import { InitState, ActionType, Action, ProjectFieldsProps } from "./models";
 
 function projectsReducer(state: InitState, action: Action) {
   switch (action.type) {
@@ -42,7 +42,7 @@ function App() {
         })
     };
 
-    const handleAddProject = (projectData: ProjectProps) => {
+    const handleAddProject = (projectData: ProjectFieldsProps) => {
         dispatchProjects({
             type: ActionType.ADD_PROJECT,
             payload: projectData
