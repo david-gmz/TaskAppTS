@@ -1,6 +1,7 @@
 import React from "react";
 import { createPortal } from "react-dom";
 import { ModalProps } from "../models";
+import Button from "./Button";
 
 const modalRoot = document.getElementById("modal-root");
 
@@ -18,10 +19,12 @@ const Modal = React.forwardRef(function Modal(
     });
     if (modalRoot) {
         return createPortal(
-            <dialog ref={dialog}>
+            <dialog
+                ref={dialog}
+                className="backdrop:bg-stone-900/90 p-4 rounded-md shadow-md">
                 {children}
-                <form method="dialog">
-                    <button>{buttonCaption}</button>
+                <form method="dialog" className="mt-4 text-right">
+                    <Button label={buttonCaption} />
                 </form>
             </dialog>,
             modalRoot

@@ -38,6 +38,7 @@ interface SidebarProps {
 
 interface NewProjectProps {
     onAddProject: (p: ProjectFieldsProps) => void;
+    onCancelProject: () => void
 }
 interface InitState {
     selectedProjectId: undefined | null;
