@@ -40,6 +40,7 @@ interface ProjectProps extends ProjectFieldsProps {
 
 interface NewProjectProps {
     onAddProject: (p: ProjectFieldsProps) => void;
+    onCancelProject: () => void
 }
 
 type ChildrenRN = {

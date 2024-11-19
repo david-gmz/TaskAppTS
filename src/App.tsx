@@ -5,14 +5,19 @@ import Sidebar from "./components/Sidebar";
 import { InitState, ActionType, Action, ProjectFieldsProps } from "./models";
 
 function projectsReducer(state: InitState, action: Action) {
-  switch (action.type) {
-    case ActionType.START_ADD_PROJECT:
-      return {
-          ...state,
-          selectedProjectId: null
-      };
-      case ActionType.ADD_PROJECT: {
-          const newProject = {
+    switch (action.type) {
+        case ActionType.START_ADD_PROJECT:
+            return {
+                ...state,
+                selectedProjectId: null
+            };
+        case ActionType.CANCEL_ADD_PROJECT:
+            return {
+                ...state,
+                selectedProjectId: undefined
+            };
+        case ActionType.ADD_PROJECT: {
+            const newProject = {
                 ...action.payload,
                 id: Date.now()
             };
@@ -21,44 +26,59 @@ function projectsReducer(state: InitState, action: Action) {
                 selectedProjectId: undefined,
                 projects: [...state.projects, newProject]
             };
-      }
-  
-    default:
-      return state;
-  }
- }
+        }
+
+        default:
+            return state;
+    }
+}
 
 function App() {
     const initialState: InitState = {
         selectedProjectId: undefined,
         projects: []
     };
-  
-  const [stateProjects, dispatchProjects] = React.useReducer(projectsReducer, initialState);
-  
-    const handleStartAddProject = () => {
-      dispatchProjects({
-          type: ActionType.START_ADD_PROJECT
-        })
-    };
 
-    const handleAddProject = (projectData: ProjectFieldsProps) => {
+    const [stateProjects, dispatchProjects] = React.useReducer(
+        projectsReducer,
+        initialState
+    );
+
+    const handleStartAddProject = () =>
+        dispatchProjects({
+            type: ActionType.START_ADD_PROJECT
+        });
+
+    const handleCancelAddProject = () =>
+        dispatchProjects({
+            type: ActionType.CANCEL_ADD_PROJECT
+        });
+
+    const handleAddProject = (projectData: ProjectFieldsProps) =>
         dispatchProjects({
             type: ActionType.ADD_PROJECT,
             payload: projectData
         });
-    }
-console.log('StateProjects: ', stateProjects);
+    console.log("StateProjects: ", stateProjects);
 
     let content;
     if (stateProjects.selectedProjectId === undefined)
         content = (
             <NoProjectSelected onStartAddProject={handleStartAddProject} />
         );
-    else if (stateProjects.selectedProjectId === null) content = <NewProject onAddProject={handleAddProject} />;
+    else if (stateProjects.selectedProjectId === null)
+        content = (
+            <NewProject
+                onAddProject={handleAddProject}
+                onCancelProject={handleCancelAddProject}
+            />
+        );
     return (
         <main className="h-screen my-8 flex gap-8">
-            <Sidebar onStartAddProject={handleStartAddProject} projectsList={stateProjects.projects} />
+            <Sidebar
+                onStartAddProject={handleStartAddProject}
+                projectsList={stateProjects.projects}
+            />
             {content}
         </main>
     );

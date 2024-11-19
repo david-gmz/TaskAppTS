@@ -3,7 +3,7 @@ import Input from "./Input";
 import { NewProjectProps } from "../models";
 import Modal from "./Modal";
 
-export default function NewProject({ onAddProject }: NewProjectProps) {
+export default function NewProject({ onAddProject, onCancelProject }: NewProjectProps) {
     const title = React.useRef<HTMLInputElement>(null);
     const description = React.useRef<HTMLTextAreaElement>(null);
     const dueDate = React.useRef<HTMLInputElement>(null);
@@ -21,24 +21,30 @@ export default function NewProject({ onAddProject }: NewProjectProps) {
                 if (modal.current) modal.current.open();
                 return;
             }
-                onAddProject({
-                    title: enteredTitle,
-                    description: enteredDescription,
-                    dueDate: enteredDueDate
-                });
+            onAddProject({
+                title: enteredTitle,
+                description: enteredDescription,
+                dueDate: enteredDueDate
+            });
         }
     };
     return (
         <>
-            <Modal ref={modal} buttonCaption="OK">
-                <h2>Invalid input</h2>
-                <p>Ups... looks like you forgot to enter a value. </p>
-                <p>Please make sure you provide a value for every field.</p>
+            <Modal ref={modal} buttonCaption="Okey">
+                <h2 className="text-xl font-bold text-stone-700 my-4">
+                    Invalid input
+                </h2>
+                <p className="text-stone-600 mb-4">
+                    Oops... looks like you forgot to enter a value.{" "}
+                </p>
+                <p className="text-stone-600 mb-4">
+                    Please make sure you provide a value for every field.
+                </p>
             </Modal>
             <div className="w-[35rem] mt-16">
                 <menu className="flex items-center justify-end gap-4 my-4">
                     <li>
-                        <button className="text-stone-800 hover:text-stone-950">
+                        <button className="text-stone-800 hover:text-stone-950" onClick={onCancelProject}>
                             Cancel
                         </button>
                     </li>
