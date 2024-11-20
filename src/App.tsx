@@ -33,6 +33,12 @@ function projectsReducer(state: InitState, action: Action) {
                 selectedProjectId: undefined,
                 projects: [...state.projects, newProject]
             };
+        };
+        case ActionType.SELECTED_PROJECT: {
+            return {
+                ...state,
+                selectedProjectId: action.payload
+            }
         }
 
         default:
@@ -92,6 +98,7 @@ function App() {
                 onStartAddProject={handleStartAddProject}
                 onSelectedProject={handleSelectedProject}
                 projectsList={stateProjects.projects}
+                highlightSelectedID={stateProjects.selectedProjectId!}
             />
             {content}
         </main>

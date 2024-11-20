@@ -36,7 +36,8 @@ interface InitState {
 interface SidebarProps {
     onStartAddProject: () => void;
     onSelectedProject: (id: ProjectProps["id"]) => void;
-    projectsList: ProjectProps[]
+    projectsList: ProjectProps[];
+    highlightSelectedID: ProjectProps["id"];
 };
 
 interface NewProjectProps {
