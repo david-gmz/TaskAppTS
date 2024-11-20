@@ -20,14 +20,6 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     label?: string;
 }
 
-interface SidebarProps {
-    onStartAddProject: () => void;
-    projectsList: ProjectProps[]
-};
-interface InitState {
-    selectedProjectId: undefined | null;
-    projects: ProjectProps[];
-}
 interface ProjectFieldsProps {
     title: string;
     description: string;
@@ -37,12 +29,23 @@ interface ProjectFieldsProps {
 interface ProjectProps extends ProjectFieldsProps {
     id: number;
 }
+interface InitState {
+    selectedProjectId: undefined | null | ProjectProps["id"];
+    projects: ProjectProps[];
+}
+interface SidebarProps {
+    onStartAddProject: () => void;
+    onSelectedProject: (id: ProjectProps["id"]) => void;
+    projectsList: ProjectProps[]
+};
 
 interface NewProjectProps {
     onAddProject: (p: ProjectFieldsProps) => void;
     onCancelProject: () => void
 }
-
+interface SelectedProjectProps {
+    project: ProjectProps
+}
 type ChildrenRN = {
     children: React.ReactNode
 }
@@ -57,6 +60,8 @@ export type {
     ButtonProps,
     SidebarProps,
     NewProjectProps,
+    SelectedProjectProps,
     ProjectFieldsProps,
+    ProjectProps,
     ModalProps
 };

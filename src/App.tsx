@@ -2,7 +2,14 @@ import React from "react";
 import NewProject from "./components/NewProject";
 import NoProjectSelected from "./components/NoProjectSelected";
 import Sidebar from "./components/Sidebar";
-import { InitState, ActionType, Action, ProjectFieldsProps } from "./models";
+import {
+    InitState,
+    ActionType,
+    Action,
+    ProjectFieldsProps,
+    ProjectProps
+} from "./models";
+import SelectedProject from "./components/SelectedProject";
 
 function projectsReducer(state: InitState, action: Action) {
     switch (action.type) {
@@ -59,9 +66,15 @@ function App() {
             type: ActionType.ADD_PROJECT,
             payload: projectData
         });
-    console.log("StateProjects: ", stateProjects);
-
-    let content;
+    const handleSelectedProject = (id: ProjectProps["id"]) =>
+        dispatchProjects({
+            type: ActionType.SELECTED_PROJECT,
+            payload: id
+        });
+    const selectedProject = stateProjects.projects.find(
+        project => project.id === stateProjects.selectedProjectId
+    );
+    let content = <SelectedProject project={selectedProject!} />;
     if (stateProjects.selectedProjectId === undefined)
         content = (
             <NoProjectSelected onStartAddProject={handleStartAddProject} />
@@ -77,6 +90,7 @@ function App() {
         <main className="h-screen my-8 flex gap-8">
             <Sidebar
                 onStartAddProject={handleStartAddProject}
+                onSelectedProject={handleSelectedProject}
                 projectsList={stateProjects.projects}
             />
             {content}

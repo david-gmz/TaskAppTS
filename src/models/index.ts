@@ -3,7 +3,9 @@ import type {
     InitState,
     ButtonProps,
     SidebarProps,
+    SelectedProjectProps,
     ProjectFieldsProps,
+    ProjectProps,
     NewProjectProps,
     ModalProps
 } from "./propsTypes";
@@ -15,7 +17,9 @@ export type {
     InitState,
     ButtonProps,
     SidebarProps,
+    SelectedProjectProps,
     ProjectFieldsProps,
+    ProjectProps,
     NewProjectProps,
     ModalProps
 };
