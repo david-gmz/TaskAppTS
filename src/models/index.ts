@@ -33,15 +33,19 @@ interface ProjectProps extends ProjectFieldsProps {
 
 interface SidebarProps {
     onStartAddProject: () => void;
+    onSelectedProject: (id: ProjectProps["id"]) => void;
     projectsList: ProjectProps[];
+    selectedProjectId: ProjectProps["id"];
 }
-
+interface SelectedProjectProps {
+    project: ProjectProps;
+}
 interface NewProjectProps {
     onAddProject: (p: ProjectFieldsProps) => void;
     onCancelProject: () => void
 }
 interface InitState {
-    selectedProjectId: undefined | null;
+    selectedProjectId: undefined | null | ProjectProps['id'];
     projects: ProjectProps[];
 }
 type ButtonCaption = { buttonCaption: string};
@@ -53,8 +57,10 @@ export type {
     InputProps,
     InitState,
     ButtonProps,
+    ProjectProps,
     SidebarProps,
     ProjectFieldsProps,
     NewProjectProps,
-    ModalProps
+    ModalProps,
+    SelectedProjectProps
 };

@@ -2,7 +2,8 @@ import React from "react";
 import NewProject from "./components/NewProject";
 import NoProjectSelected from "./components/NoProjectSelected";
 import Sidebar from "./components/Sidebar";
-import { InitState, ProjectFieldsProps } from "./models";
+import { InitState, ProjectFieldsProps, ProjectProps } from "./models";
+import SelectedProject from "./components/SelectedProject";
 
 function App() {
     const initialState: InitState = {
@@ -25,7 +26,12 @@ function App() {
             selectedProjectId: undefined
         }));
     };
-
+ const handleSelectedProject = (id:ProjectProps['id']) => {
+     setStateProjects(prevStateProjects => ({
+         ...prevStateProjects,
+         selectedProjectId: id
+     }));
+ };
     const handleAddProject = (projectData: ProjectFieldsProps) => {
         setStateProjects((prevStateProjects: InitState) => {
             const newProject = {
@@ -39,9 +45,9 @@ function App() {
             };
         });
     };
-    console.log("StateProjects", stateProjects);
+    const selectedProject = stateProjects.projects.find(project => project.id === stateProjects.selectedProjectId)
 
-    let content;
+    let content = <SelectedProject project={selectedProject!} />;
     if (stateProjects.selectedProjectId === undefined)
         content = (
             <NoProjectSelected onStartAddProject={handleStartAddProject} />
@@ -55,7 +61,12 @@ function App() {
         );
     return (
         <main className="h-screen my-8 flex gap-8">
-            <Sidebar onStartAddProject={handleStartAddProject} projectsList={stateProjects.projects} />
+            <Sidebar
+                onSelectedProject={handleSelectedProject}
+                onStartAddProject={handleStartAddProject}
+                projectsList={ stateProjects.projects }
+                selectedProjectId={stateProjects.selectedProjectId!}
+            />
             {content}
         </main>
     );
