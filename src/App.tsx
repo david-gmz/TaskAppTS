@@ -26,12 +26,12 @@ function App() {
             selectedProjectId: undefined
         }));
     };
- const handleSelectedProject = (id:ProjectProps['id']) => {
-     setStateProjects(prevStateProjects => ({
-         ...prevStateProjects,
-         selectedProjectId: id
-     }));
- };
+    const handleSelectedProject = (id: ProjectProps["id"]) => {
+        setStateProjects(prevStateProjects => ({
+            ...prevStateProjects,
+            selectedProjectId: id
+        }));
+    };
     const handleAddProject = (projectData: ProjectFieldsProps) => {
         setStateProjects((prevStateProjects: InitState) => {
             const newProject = {
@@ -45,9 +45,23 @@ function App() {
             };
         });
     };
-    const selectedProject = stateProjects.projects.find(project => project.id === stateProjects.selectedProjectId)
+    const handleDeletedProject = () => {
+        setStateProjects((prevStateProjects: InitState) => ({
+            ...prevStateProjects,
+            selectedProjectId: undefined,
+            projects: stateProjects.projects.filter(project => project.id !== prevStateProjects.selectedProjectId)
+        }))
+    };
+    const selectedProject = stateProjects.projects.find(
+        project => project.id === stateProjects.selectedProjectId
+    );
 
-    let content = <SelectedProject project={selectedProject!} />;
+    let content = (
+        <SelectedProject
+            onDeleteProject={handleDeletedProject}
+            project={selectedProject!}
+        />
+    );
     if (stateProjects.selectedProjectId === undefined)
         content = (
             <NoProjectSelected onStartAddProject={handleStartAddProject} />
@@ -64,7 +78,7 @@ function App() {
             <Sidebar
                 onSelectedProject={handleSelectedProject}
                 onStartAddProject={handleStartAddProject}
-                projectsList={ stateProjects.projects }
+                projectsList={stateProjects.projects}
                 selectedProjectId={stateProjects.selectedProjectId!}
             />
             {content}

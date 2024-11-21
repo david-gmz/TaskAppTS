@@ -39,6 +39,7 @@ interface SidebarProps {
 }
 interface SelectedProjectProps {
     project: ProjectProps;
+    onDeleteProject: () => void;
 }
 interface NewProjectProps {
     onAddProject: (p: ProjectFieldsProps) => void;

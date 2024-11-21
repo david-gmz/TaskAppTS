@@ -15,9 +15,11 @@ const Input = React.forwardRef<
             props as React.TextareaHTMLAttributes<HTMLTextAreaElement>;
         return (
             <p className={classesP}>
-                <label className={classesLabel}>{label}</label>
+                <label htmlFor={label.toLowerCase()} className={classesLabel}>{label}</label>
                 <textarea
                     ref={ref as React.Ref<HTMLTextAreaElement>}
+                    name={label.toLocaleLowerCase()}
+                    id={label.toLocaleLowerCase()}
                     className={classesInput}
                     {...textareaProps}
                 />
@@ -28,9 +30,13 @@ const Input = React.forwardRef<
         const inputProps = props as React.InputHTMLAttributes<HTMLInputElement>;
         return (
             <p className={classesP}>
-                <label className={classesLabel}>{label}</label>
+                <label htmlFor={label.toLowerCase()} className={classesLabel}>
+                    {label}
+                </label>
                 <input
                     ref={ref as React.Ref<HTMLInputElement>}
+                    name={label.toLocaleLowerCase()}
+                    id={label.toLocaleLowerCase()}
                     className={classesInput}
                     {...inputProps}
                 />
