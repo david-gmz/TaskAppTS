@@ -33,13 +33,21 @@ function projectsReducer(state: InitState, action: Action) {
                 selectedProjectId: undefined,
                 projects: [...state.projects, newProject]
             };
-        };
+        }
         case ActionType.SELECTED_PROJECT: {
             return {
                 ...state,
                 selectedProjectId: action.payload
-            }
+            };
         }
+        case ActionType.DELETE_PROJECT:
+            return {
+                ...state,
+                selectedProjectId: undefined,
+                projects: state.projects.filter(
+                    project => project.id !== action.payload
+                )
+            };
 
         default:
             return state;
@@ -77,10 +85,20 @@ function App() {
             type: ActionType.SELECTED_PROJECT,
             payload: id
         });
+    const handleDeleteProject = (id: ProjectProps["id"]) =>
+        dispatchProjects({
+            type: ActionType.DELETE_PROJECT,
+            payload: id
+        });
     const selectedProject = stateProjects.projects.find(
         project => project.id === stateProjects.selectedProjectId
     );
-    let content = <SelectedProject project={selectedProject!} />;
+    let content = (
+        <SelectedProject
+            project={selectedProject!}
+            onDeleteProject={handleDeleteProject}
+        />
+    );
     if (stateProjects.selectedProjectId === undefined)
         content = (
             <NoProjectSelected onStartAddProject={handleStartAddProject} />

@@ -45,7 +45,8 @@ interface NewProjectProps {
     onCancelProject: () => void
 }
 interface SelectedProjectProps {
-    project: ProjectProps
+    project: ProjectProps;
+    onDeleteProject: (id: ProjectProps["id"]) => void;
 }
 type ChildrenRN = {
     children: React.ReactNode

@@ -61,19 +61,19 @@ export default function NewProject({ onAddProject, onCancelProject }: NewProject
                         ref={title}
                         isTextarea={false}
                         label="Title"
-                        props={{ type: "text", placeholder: "Enter text" }}
+                        props={{ type: "text", name:"title", placeholder: "Enter text" }}
                     />
                     <Input
                         ref={description}
                         label="Description"
-                        props={{ placeholder: "Enter your description" }}
+                        props={{ name:"description", placeholder: "Enter your description" }}
                         isTextarea
                     />
                     <Input
                         ref={dueDate}
                         isTextarea={false}
                         label="Due Date"
-                        props={{ type: "date" }}
+                        props={{ type: "date", name:"dueDate" }}
                     />
                 </div>
             </div>
