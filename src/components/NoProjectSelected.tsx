@@ -1,7 +1,9 @@
 import noProjectImage from "../assets/logo.png";
-import { OnStartAdd } from "../models";
+import { NoProjectSelectedProps } from "../models";
 import Button from "./Button";
-export default function NoProjectSelected({ onStartAddProject }: OnStartAdd) {
+export default function NoProjectSelected({
+    onStartAddProject
+}: NoProjectSelectedProps) {
     return (
         <div className="mt-24 text-center w-2/3">
             <img

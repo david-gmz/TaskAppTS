@@ -18,6 +18,7 @@ type InputProps = InputPropsTextArea | InputPropsInput;
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     label?: string;
+    variant?: "primary" | "secondary" | "text";
 }
 
 
@@ -31,8 +32,10 @@ interface ProjectProps extends ProjectFieldsProps {
     id: number;
 }
 
-interface SidebarProps {
+interface NoProjectSelectedProps {
     onStartAddProject: () => void;
+}
+interface SidebarProps extends NoProjectSelectedProps {
     onSelectedProject: (id: ProjectProps["id"]) => void;
     projectsList: ProjectProps[];
     selectedProjectId: ProjectProps["id"];
@@ -45,13 +48,24 @@ interface NewProjectProps {
     onAddProject: (p: ProjectFieldsProps) => void;
     onCancelProject: () => void
 }
-interface InitState {
-    selectedProjectId: undefined | null | ProjectProps['id'];
+interface InitState extends TasksProps {
+    selectedProjectId: undefined | null | ProjectProps["id"];
     projects: ProjectProps[];
 }
 type ButtonCaption = { buttonCaption: string};
 type ChildrenRN = {
     children: React.ReactNode
+}
+interface NewTaskProps {
+    onAddTask: (text: string) => void;
+}
+interface TaskProps {
+    id: ProjectProps["id"];
+    taskId: number;
+    text: string
+}
+interface TasksProps {
+    tasks: TaskProps[]
 }
 type ModalProps = ChildrenRN & ButtonCaption
 export type {
@@ -60,8 +74,11 @@ export type {
     ButtonProps,
     ProjectProps,
     SidebarProps,
+    NoProjectSelectedProps,
     ProjectFieldsProps,
     NewProjectProps,
+    NewTaskProps,
+    TasksProps,
     ModalProps,
     SelectedProjectProps
 };

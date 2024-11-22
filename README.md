@@ -364,6 +364,31 @@ The type `React.Ref<T>` represents a ref that can either:
 Since our component will expose the open() method, we declare the ref type as `React.Ref<{ open: () => void }>`, letting TypeScript know exactly what the parent will receive.
 </details>
 
+<details><summary>fix the typing issue in your handleAddTask function.</summary>
+ 
+## Match the TaskProps
+```ts
+// App.tsx
+const handleAddTask = (text: string) => {
+    setStateProjects((prevStateProjects: InitState) => {
+        if (!prevStateProjects.selectedProjectId) {
+            return prevStateProjects; // Return unchanged if no project is selected
+        }
+        
+        const newTask: TaskProps = {
+            id: prevStateProjects.selectedProjectId,
+            text,
+            taskId: Date.now()
+        };
+        return {
+            ...prevStateProjects,
+            tasks: [newTask, ...prevStateProjects.tasks]
+        };
+    });
+};
+```
+That was a first solution. Then I added ainterface TasksProps {tasks: Task[]}
+</details>
 ---
 
 [^1]: This course can be found in Udemy website.
