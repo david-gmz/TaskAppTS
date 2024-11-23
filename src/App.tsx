@@ -2,7 +2,7 @@ import React from "react";
 import NewProject from "./components/NewProject";
 import NoProjectSelected from "./components/NoProjectSelected";
 import Sidebar from "./components/Sidebar";
-import { InitState, ProjectFieldsProps, ProjectProps} from "./models";
+import { InitState, ProjectFieldsProps, ProjectProps, TaskProps} from "./models";
 import SelectedProject from "./components/SelectedProject";
 
 function App() {
@@ -62,8 +62,8 @@ function App() {
                 return prevStateProjects; // Return unchanged if no project is selected
             }
             const newTask = {
-                id: prevStateProjects.selectedProjectId,
                 text,
+                id: prevStateProjects.selectedProjectId,
                 taskId: Date.now()
             };
             return {
@@ -72,13 +72,24 @@ function App() {
             };
         });
     }
-
+const selectedProjectTasks = stateProjects.tasks.filter(
+    task => task.id === stateProjects.selectedProjectId
+);
+    const handleDeleteTask = (id: TaskProps["id"]) => {
+        setStateProjects((prevStateProjects: InitState) => ({
+            ...prevStateProjects,
+            tasks: stateProjects.tasks.filter(
+                task => task.taskId !== id
+            )
+        }));
+    }
     let content = (
         <SelectedProject
             onDeleteProject={handleDeletedProject}
-            project={ selectedProject! }
-            onAddTask={ handleAddTask }
-            tasks={stateProjects.tasks}
+            project={selectedProject!}
+            onAddTask={handleAddTask}
+            tasks={selectedProjectTasks}
+            onDeleteTask={handleDeleteTask}
         />
     );
     if (stateProjects.selectedProjectId === undefined)

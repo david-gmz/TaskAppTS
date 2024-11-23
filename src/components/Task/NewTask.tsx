@@ -7,9 +7,9 @@ export default function NewTask({ onAddTask }: NewTaskProps) {
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
         setEnteredTask(e.target.value);
     const handleClick = () => {
-        onAddTask(enteredTask)
-        setEnteredTask('')
-    }
+        if (enteredTask.trim() !== "") onAddTask(enteredTask);
+        setEnteredTask("");
+    };
     return (
         <div className="flex items-center gap-4">
             <Input

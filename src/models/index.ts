@@ -65,7 +65,8 @@ interface TaskProps {
     text: string
 }
 interface TasksProps {
-    tasks: TaskProps[]
+    tasks: TaskProps[];
+    onDeleteTask: (id:TaskProps["taskId"]) => void
 }
 type ModalProps = ChildrenRN & ButtonCaption
 export type {
@@ -79,6 +80,7 @@ export type {
     NewProjectProps,
     NewTaskProps,
     TasksProps,
+    TaskProps,
     ModalProps,
     SelectedProjectProps
 };
