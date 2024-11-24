@@ -18,6 +18,7 @@ type InputProps = InputPropsTextArea | InputPropsInput;
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     label?: string;
+    variant?: "primary" | "secondary" | "text";
 }
 
 interface ProjectFieldsProps {
@@ -33,21 +34,6 @@ interface InitState {
     selectedProjectId: undefined | null | ProjectProps["id"];
     projects: ProjectProps[];
 }
-interface SidebarProps {
-    onStartAddProject: () => void;
-    onSelectedProject: (id: ProjectProps["id"]) => void;
-    projectsList: ProjectProps[];
-    highlightSelectedID: ProjectProps["id"];
-};
-
-interface NewProjectProps {
-    onAddProject: (p: ProjectFieldsProps) => void;
-    onCancelProject: () => void
-}
-interface SelectedProjectProps {
-    project: ProjectProps;
-    onDeleteProject: (id: ProjectProps["id"]) => void;
-}
 type ChildrenRN = {
     children: React.ReactNode
 }
@@ -57,12 +43,10 @@ type ButtonCaption = {
 
 type ModalProps = ChildrenRN & ButtonCaption;
 export type {
+    ChildrenRN,
     InputProps,
     InitState,
     ButtonProps,
-    SidebarProps,
-    NewProjectProps,
-    SelectedProjectProps,
     ProjectFieldsProps,
     ProjectProps,
     ModalProps

@@ -1,9 +1,10 @@
 import React from "react";
 import Input from "./Input";
-import { NewProjectProps } from "../models";
 import Modal from "./Modal";
+import { ProjectsContext } from "../store/ProjectsContext";
 
-export default function NewProject({ onAddProject, onCancelProject }: NewProjectProps) {
+export default function NewProject() {
+    const { onAddProject, onCancelProject } = React.useContext(ProjectsContext)
     const title = React.useRef<HTMLInputElement>(null);
     const description = React.useRef<HTMLTextAreaElement>(null);
     const dueDate = React.useRef<HTMLInputElement>(null);

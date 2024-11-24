@@ -13,7 +13,7 @@ type Action =
     | { type: ActionType.CANCEL_ADD_PROJECT }
     | { type: ActionType.ADD_PROJECT; payload: ProjectFieldsProps }
     | { type: ActionType.SELECTED_PROJECT; payload: ProjectProps["id"] }
-    | { type: ActionType.DELETE_PROJECT; payload: ProjectProps["id"] };
+    | { type: ActionType.DELETE_PROJECT };
 
 export { ActionType };
 export type { Action };

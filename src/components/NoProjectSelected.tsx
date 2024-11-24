@@ -1,7 +1,9 @@
+import React from "react";
 import noProjectImage from "../assets/logo.png";
-import { OnStartAdd } from "../models";
 import Button from "./Button";
-export default function NoProjectSelected({ onStartAddProject }: OnStartAdd) {
+import { ProjectsContext } from "../store/ProjectsContext";
+export default function NoProjectSelected() {
+    const { onStartAddProject } = React.useContext(ProjectsContext);
     return (
         <div className="mt-24 text-center w-2/3">
             <img
