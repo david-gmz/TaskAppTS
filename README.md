@@ -290,7 +290,7 @@ export default function NewProject() {
    }
  ```
 </details>
-<details open><summary>specific type of the dialog ref </summary>
+<details><summary>specific type of the dialog ref </summary>
  
 ## Defining type in Modal component 
 ```ts
@@ -388,6 +388,24 @@ const handleAddTask = (text: string) => {
 };
 ```
 That was a first solution. Then I added ainterface TasksProps {tasks: Task[]}
+</details>
+
+<details open><summary>Refactoring with Context API redefining types</summary>
+ 
+##  Advantages of Context API with TypeScript
+1. **Avoids Prop Drilling**
+
+   - Context simplifies the process of passing data deeply nested in a component tree. This is especially useful for global states like themes, authentication, or language preferences.
+2. **Improved Type Safety**
+
+   - TypeScript ensures that the context's shape is consistent across components. With well-defined types, developers are less prone to runtime errors caused by mismatched data structures.
+3. **Better Developer Experience**
+
+   - Intellisense in IDEs (e.g., VSCode) leverages TypeScript types, making it easier to use context values correctly and reducing the learning curve for new developers.
+4. **Scalability for Small to Medium Apps**
+
+   - Context API works well for apps with manageable state requirements, providing a simpler alternative to libraries like Redux for medium-sized projects.
+
 </details>
 ---
 
