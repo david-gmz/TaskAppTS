@@ -1,8 +1,13 @@
-import { NewTaskProps, TasksProps } from "../../models";
+import React from "react";
 import Button from "../Button";
 import NewTask from "./NewTask";
+import { ProjectsContext } from "../../store/ProjectsContext";
 
-export default function Task({ onAddTask, tasks, onDeleteTask }: NewTaskProps & TasksProps) {
+export default function Task() {
+    const {
+        tasks,
+        onDeleteTask
+    } = React.useContext(ProjectsContext);
     const tasksList = tasks.map(task => (
         <li key={task.taskId} className="flex justify-between my-4">
             <span>{task.text}</span>
@@ -12,7 +17,7 @@ export default function Task({ onAddTask, tasks, onDeleteTask }: NewTaskProps & 
 
     return (
         <section>
-            <NewTask onAddTask={onAddTask} />
+            <NewTask />
             <h2 className="text-2xl font-bold text-stone-700 mb-4">
                 Tasks list
             </h2>

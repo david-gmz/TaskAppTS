@@ -364,7 +364,7 @@ The type `React.Ref<T>` represents a ref that can either:
 Since our component will expose the open() method, we declare the ref type as `React.Ref<{ open: () => void }>`, letting TypeScript know exactly what the parent will receive.
 </details>
 
-<details><summary>fix the typing issue in your handleAddTask function.</summary>
+<details><summary>fix the typing issue in our handleAddTask function.</summary>
  
 ## Match the TaskProps
 ```ts

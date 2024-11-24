@@ -1,8 +1,9 @@
 import React from "react";
 import Button from "../Button";
 import Input from "../Input";
-import { NewTaskProps } from "../../models";
-export default function NewTask({ onAddTask }: NewTaskProps) {
+import { ProjectsContext } from "../../store/ProjectsContext";
+export default function NewTask() {
+    const { onAddTask } = React.useContext(ProjectsContext)
     const [enteredTask, setEnteredTask] = React.useState("");
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
         setEnteredTask(e.target.value);
