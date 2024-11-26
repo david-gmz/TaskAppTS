@@ -1,20 +1,22 @@
-import React from "react";
+
 import NewProject from "./NewProject";
 import NoProjectSelected from "./NoProjectSelected";
 import SelectedProject from "./SelectedProject";
-import { ProjectsContext } from "../store/ProjectsContext";
-import { ChildrenRN } from "../models";
+import { ChildrenRN } from "../types/uiTypes";
+import { useProjects } from "../hooks/useProjects";
 
 export default function Main({ children }: ChildrenRN) {
-    const { selectedProjectId } = React.useContext(ProjectsContext);
-    let content = <SelectedProject />;
-    if (selectedProjectId === undefined)
-        content = <NoProjectSelected />;
-    else if (selectedProjectId === null) content = <NewProject />;
+    const { selectedProjectId } = useProjects();
+    const renderContent = () => {
+        if (selectedProjectId === null) return <NewProject />;
+        if (selectedProjectId === undefined) return <NoProjectSelected />;
+        return <SelectedProject />;
+    };
+
     return (
         <main className="h-screen my-8 flex gap-8">
             {children}
-            {content}
+            {renderContent()}
         </main>
     );
 }

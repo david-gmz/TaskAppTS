@@ -1,5 +1,5 @@
 import React from "react";
-import { ModalProps } from "../models";
+import { ModalProps } from "../types/uiTypes";
 import { createPortal } from "react-dom";
 import Button from "./Button";
 

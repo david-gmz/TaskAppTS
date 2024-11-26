@@ -378,7 +378,7 @@ The type `React.Ref<T>` represents a ref that can either:
 Since our component will expose the open() method, we declare the ref type as `React.Ref<{ open: () => void }>`, letting TypeScript know exactly what the parent will receive.
 </details>
 
-<details open><summary>The Context API powerful tool for managing state</summary>
+<details><summary>The Context API powerful tool for managing state</summary>
  
 ##  The Context API in ReactJS
  The Context API in ReactJS is a powerful tool for managing state and passing data through a component tree without prop drilling. When combined with TypeScript, it provides additional advantages, but it also introduces specific challenges. Below is a detailed breakdown:
@@ -445,7 +445,58 @@ interface ContextProps {
 - Scenarios requiring frequent updates across unrelated components (better handled with ***Redux, Zustand***, or similar).
 
 </details>
+<details open><summary>Refactoring improvements</summary>
+ 
+## Organization & Avoiding Performance Overhead
+1. **Better Type Organization:**
 
+   - Separated types into dedicated files for better organization
+   - Used more specific naming conventions
+   - Added type aliases for commonly used types
+   - Removed redundant interfaces and consolidated types
+
+
+2. **Performance Optimizations:**
+
+    - Split the context into separate state and dispatch contexts to prevent unnecessary rerenders
+    - Added useCallback and useMemo hooks for memoization
+    - Created custom hooks to encapsulate logic and provide better reusability
+    - Moved complex computations into hooks
+
+
+3. **Code Structure Improvements:**
+
+   - Separated concerns into different files (types, actions, reducer, hooks)
+   - Created a custom useProjects hook to encapsulate all project-related logic
+   - Improved naming conventions for better clarity
+   - Added better error handling in context hooks
+
+
+5. **State Management Improvements:**
+
+    - Simplified the state structure
+    - Made the reducer more predictable with better type safety
+    - Added proper null checks in the reducer
+    - Improved action type naming for better debugging
+
+
+6. **Additional Safety Features:**
+
+    - Added runtime checks for context usage
+    - Improved type safety throughout the application
+    - Added proper undefined checks
+    - Made the initial state more explicit
+
+
+7. **Developer Experience Improvements:**
+
+    - Better file organization
+    - More consistent naming conventions
+    - Improved type exports
+    - Better separation of concerns
+ 
+
+</details>
 ---
 
 [^1]: This course can be found in Udemy website.

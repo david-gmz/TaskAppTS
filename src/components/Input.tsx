@@ -1,5 +1,5 @@
 import React from "react";
-import { InputProps } from "../models";
+import { InputProps } from "../types/uiTypes";
 
 const Input = React.forwardRef<
     HTMLTextAreaElement | HTMLInputElement,

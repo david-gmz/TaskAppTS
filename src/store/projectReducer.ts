@@ -1,22 +1,29 @@
-import {
-    InitState,
-    ActionType,
-    Action
-} from "../models";
+import { ProjectState } from "../types/state";
+import { ProjectAction, ProjectActionType } from "./actions";
 
-function projectsReducer(state: InitState, action: Action) {
+export const initialState: ProjectState = {
+    selectedProjectId: undefined,
+    projects: []
+};
+
+export function projectReducer(
+    state: ProjectState = initialState,
+    action: ProjectAction
+): ProjectState {
     switch (action.type) {
-        case ActionType.START_ADD_PROJECT:
+        case ProjectActionType.START_ADD:
             return {
                 ...state,
                 selectedProjectId: null
             };
-        case ActionType.CANCEL_ADD_PROJECT:
+
+        case ProjectActionType.CANCEL:
             return {
                 ...state,
                 selectedProjectId: undefined
             };
-        case ActionType.ADD_PROJECT: {
+
+        case ProjectActionType.ADD: {
             const newProject = {
                 ...action.payload,
                 id: Date.now()
@@ -27,13 +34,16 @@ function projectsReducer(state: InitState, action: Action) {
                 projects: [...state.projects, newProject]
             };
         }
-        case ActionType.SELECTED_PROJECT: {
+
+        case ProjectActionType.SELECT:
             return {
                 ...state,
                 selectedProjectId: action.payload
             };
-        }
-        case ActionType.DELETE_PROJECT:
+
+        case ProjectActionType.DELETE:
+            if (!state.selectedProjectId) return state;
+
             return {
                 ...state,
                 selectedProjectId: undefined,
@@ -46,4 +56,3 @@ function projectsReducer(state: InitState, action: Action) {
             return state;
     }
 }
-export {projectsReducer}

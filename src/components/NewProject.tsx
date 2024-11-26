@@ -1,10 +1,10 @@
 import React from "react";
 import Input from "./Input";
 import Modal from "./Modal";
-import { ProjectsContext } from "../store/ProjectsContext";
+import { useProjects } from "../hooks/useProjects";
 
 export default function NewProject() {
-    const { onAddProject, onCancelProject } = React.useContext(ProjectsContext)
+    const { addProject, cancelProject } = useProjects();
     const title = React.useRef<HTMLInputElement>(null);
     const description = React.useRef<HTMLTextAreaElement>(null);
     const dueDate = React.useRef<HTMLInputElement>(null);
@@ -22,7 +22,7 @@ export default function NewProject() {
                 if (modal.current) modal.current.open();
                 return;
             }
-            onAddProject({
+            addProject({
                 title: enteredTitle,
                 description: enteredDescription,
                 dueDate: enteredDueDate
@@ -45,7 +45,9 @@ export default function NewProject() {
             <div className="w-[35rem] mt-16">
                 <menu className="flex items-center justify-end gap-4 my-4">
                     <li>
-                        <button className="text-stone-800 hover:text-stone-950" onClick={onCancelProject}>
+                        <button
+                            className="text-stone-800 hover:text-stone-950"
+                            onClick={cancelProject}>
                             Cancel
                         </button>
                     </li>
@@ -62,19 +64,26 @@ export default function NewProject() {
                         ref={title}
                         isTextarea={false}
                         label="Title"
-                        props={{ type: "text", name:"title", placeholder: "Enter text" }}
+                        props={{
+                            type: "text",
+                            name: "title",
+                            placeholder: "Enter text"
+                        }}
                     />
                     <Input
                         ref={description}
                         label="Description"
-                        props={{ name:"description", placeholder: "Enter your description" }}
+                        props={{
+                            name: "description",
+                            placeholder: "Enter your description"
+                        }}
                         isTextarea
                     />
                     <Input
                         ref={dueDate}
                         isTextarea={false}
                         label="Due Date"
-                        props={{ type: "date", name:"dueDate" }}
+                        props={{ type: "date", name: "dueDate" }}
                     />
                 </div>
             </div>

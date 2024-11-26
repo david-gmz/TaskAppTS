@@ -1,4 +1,4 @@
-import { ButtonProps } from "../models";
+import { ButtonProps } from "../types/uiTypes";
 
 export default function Button({
     label,
