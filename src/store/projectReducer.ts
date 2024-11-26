@@ -2,7 +2,7 @@ import { ProjectState } from "../types/state";
 import { ProjectAction, ProjectActionType } from "./actions";
 
 export const initialState: ProjectState = {
-    selectedProjectId: undefined,
+    viewState: { type: "NO_SELECTION" },
     projects: []
 };
 
@@ -14,13 +14,13 @@ export function projectReducer(
         case ProjectActionType.START_ADD:
             return {
                 ...state,
-                selectedProjectId: null
+                viewState: { type: "ADDING_NEW" }
             };
 
         case ProjectActionType.CANCEL:
             return {
                 ...state,
-                selectedProjectId: undefined
+                viewState: { type: "NO_SELECTION" }
             };
 
         case ProjectActionType.ADD: {
@@ -30,7 +30,7 @@ export function projectReducer(
             };
             return {
                 ...state,
-                selectedProjectId: undefined,
+                viewState: { type: "NO_SELECTION" },
                 projects: [...state.projects, newProject]
             };
         }
@@ -38,19 +38,23 @@ export function projectReducer(
         case ProjectActionType.SELECT:
             return {
                 ...state,
-                selectedProjectId: action.payload
+                viewState: { type: "SELECTED", projectId: action.payload }
             };
 
-        case ProjectActionType.DELETE:
-            if (!state.selectedProjectId) return state;
-
-            return {
-                ...state,
-                selectedProjectId: undefined,
-                projects: state.projects.filter(
-                    project => project.id !== state.selectedProjectId
-                )
-            };
+        case ProjectActionType.DELETE: {
+            // Explicitly extract projectId if in SELECTED state
+            if (state.viewState.type === "SELECTED") {
+                const { projectId } = state.viewState;
+                return {
+                    ...state,
+                    viewState: { type: "NO_SELECTION" },
+                    projects: state.projects.filter(
+                        project => project.id !== projectId
+                    )
+                };
+            }
+            return state;
+        }
 
         default:
             return state;

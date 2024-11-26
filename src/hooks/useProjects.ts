@@ -4,13 +4,13 @@ import { ProjectActionType } from "../store/actions";
 import { useProjectDispatch, useProjectState } from "./useProjectContext";
 
 export function useProjects() {
-    const { selectedProjectId, projects } = useProjectState();
+    const { viewState, projects } = useProjectState();
     const dispatch = useProjectDispatch();
 
-    const selectedProject = React.useMemo(
-        () => projects.find(project => project.id === selectedProjectId),
-        [projects, selectedProjectId]
-    );
+    const selectedProject = React.useMemo(() => {
+        if (viewState.type !== "SELECTED") return undefined;
+        return projects.find(project => project.id === viewState.projectId);
+    }, [projects, viewState]);
 
     const startAddProject = React.useCallback(() => {
         dispatch({ type: ProjectActionType.START_ADD });
@@ -39,7 +39,7 @@ export function useProjects() {
     }, [dispatch]);
 
     return {
-        selectedProjectId,
+        viewState,
         projects,
         selectedProject,
         startAddProject,

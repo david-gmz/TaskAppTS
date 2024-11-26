@@ -6,11 +6,16 @@ import { ChildrenRN } from "../types/uiTypes";
 import { useProjects } from "../hooks/useProjects";
 
 export default function Main({ children }: ChildrenRN) {
-    const { selectedProjectId } = useProjects();
+    const { viewState } = useProjects();
     const renderContent = () => {
-        if (selectedProjectId === null) return <NewProject />;
-        if (selectedProjectId === undefined) return <NoProjectSelected />;
-        return <SelectedProject />;
+        switch (viewState.type) {
+            case "ADDING_NEW":
+                return <NewProject />;
+            case "NO_SELECTION":
+                return <NoProjectSelected />;
+            case "SELECTED":
+                return <SelectedProject />;
+        }
     };
 
     return (

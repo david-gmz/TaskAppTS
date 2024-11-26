@@ -6,6 +6,6 @@ export type ProjectViewState =
     | { type: "SELECTED"; projectId: ProjectId };
 
 export interface ProjectState {
-    selectedProjectId: undefined | null | Project["id"];
+    viewState: ProjectViewState;
     projects: Project[];
 }

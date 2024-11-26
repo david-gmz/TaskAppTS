@@ -2,12 +2,8 @@ import Button from "./Button";
 import { useProjects } from "../hooks/useProjects";
 
 export default function Sidebar() {
-    const {
-        projects,
-        selectedProjectId,
-        startAddProject,
-        selectProject
-    } = useProjects();
+    const { projects, viewState, startAddProject, selectProject } =
+        useProjects();
     return (
         <aside className="w-1/3 px-8 py-16 bg-stone-900 text-stone-50 md:w-72 rounded-r-xl">
             <h2 className="mb-8 font-bold uppercase md:text-xl text-stone-200">
@@ -18,7 +14,10 @@ export default function Sidebar() {
             </div>
             <ul>
                 {projects.map(project => {
-                    const isSelected = project.id === selectedProjectId;
+                    const isSelected =
+                        viewState.type === "SELECTED" &&
+                        viewState.projectId === project.id;
+
                     const classes = `
                         w-full text-left px-2 py-1 rounded-sm my-1 
                         ${

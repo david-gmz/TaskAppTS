@@ -445,7 +445,7 @@ interface ContextProps {
 - Scenarios requiring frequent updates across unrelated components (better handled with ***Redux, Zustand***, or similar).
 
 </details>
-<details open><summary>Refactoring improvements</summary>
+<details><summary>Refactoring improvements</summary>
  
 ## Organization & Avoiding Performance Overhead
 1. **Better Type Organization:**
@@ -497,6 +497,49 @@ interface ContextProps {
  
 
 </details>
+<details open><summary>Improve type safety and state management</summary>
+ 
+##  Making the states even more explicit and type-safe
+1. **Type-Safe View States:**
+
+    - Used discriminated unions to make states explicit and type-safe
+    - Each state carries its own relevant data
+    - Impossible to access invalid state combinations
+    - TypeScript can infer the correct types in each state
+
+
+2. Simplified State Checks:
+
+    - No more null/undefined checks needed
+    - Pattern matching in switch statements is type-safe
+    - Helper methods in useProjects for state checking
+
+
+3. Better Type Safety:
+
+    - The reducer can't accidentally return invalid states
+    - Components get proper type inference
+    - State transitions are more explicit and safer
+
+
+4. Improved Developer Experience:
+
+    - Better IDE support with type hints
+    - Easier to understand state flow
+    - Less prone to runtime errors
+    - More maintainable code
+
+
+5. Performance Benefits:
+
+    - Cleaner memoization
+    - More efficient state updates
+    - Better state organization
+ 
+
+</details>
+
+
 ---
 
 [^1]: This course can be found in Udemy website.
