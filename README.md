@@ -551,7 +551,7 @@ export interface ProjectState {
  
 
 </details>
-<details open><summary>Local reducer</summary>
+<details open><summary>Local reducer tasksReducer manages the input state</summary>
  I added a new component to add tasks to the project app, first my approach was with React.useRef() hook. 
 
  ```ts
