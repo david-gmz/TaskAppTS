@@ -3,7 +3,8 @@ import { ProjectAction, ProjectActionType } from "./actions";
 
 export const initialState: ProjectState = {
     viewState: { type: "NO_SELECTION" },
-    projects: []
+    projects: [],
+    tasks: []
 };
 
 export function projectReducer(
@@ -54,6 +55,19 @@ export function projectReducer(
                 };
             }
             return state;
+        }
+        case ProjectActionType.ADD_TASK: {
+            if (state.viewState.type !== "SELECTED") return state;
+            const { projectId } = state.viewState;
+            const newTask = {
+                ...action.payload,
+                id: projectId,
+                taskId: Date.now()
+            };
+            return {
+                ...state,
+                tasks: [newTask, ...state.tasks]
+            };
         }
 
         default:

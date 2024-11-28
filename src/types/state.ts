@@ -1,4 +1,4 @@
-import { Project, ProjectId } from "./project";
+import { Project, ProjectId, Task } from "./project";
 
 export type ProjectViewState =
     | { type: "NO_SELECTION" }
@@ -8,4 +8,5 @@ export type ProjectViewState =
 export interface ProjectState {
     viewState: ProjectViewState;
     projects: Project[];
+    tasks: Task[];
 }

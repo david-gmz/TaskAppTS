@@ -2,6 +2,7 @@ import React from "react";
 import Input from "./Input";
 import Modal from "./Modal";
 import { useProjects } from "../hooks/useProjects";
+import Button from "./Button";
 
 export default function NewProject() {
     const { addProject, cancelProject } = useProjects();
@@ -45,18 +46,18 @@ export default function NewProject() {
             <div className="w-[35rem] mt-16">
                 <menu className="flex items-center justify-end gap-4 my-4">
                     <li>
-                        <button
-                            className="text-stone-800 hover:text-stone-950"
-                            onClick={cancelProject}>
-                            Cancel
-                        </button>
+                        <Button
+                            onClick={cancelProject}
+                            variant="text"
+                            label="Cancel"
+                        />
                     </li>
                     <li>
-                        <button
+                        <Button
                             onClick={handleSave}
-                            className="px-6 py-2 rounded-md bg-stone-800 text-stone-50 hover:bg-stone-950">
-                            Save
-                        </button>
+                            variant="secondary"
+                            label="Save"
+                        />
                     </li>
                 </menu>
                 <div>

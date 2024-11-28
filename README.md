@@ -1,7 +1,7 @@
 # React TS Task Project <br> (TypeScript Journey Part II)
 
 ## Intro
-The main purpose of this project based on one of the lessons in the course "React - The Complete Guide"[^1] *by Maximilian Schwarzmüller* is to practice TypeScript. In addition *Context API*, *useReducer* and *Redux*, three popular ways of state managment.
+The main purpose of this project based on a lesson from a course[^1] is to practice TypeScript. In addition improve the understanding of the use ***Context API, useReducer***, and others React hooks in a more advance way to state managment.
 
 <details><summary>Define `{...props}` type</summary>
  
@@ -497,9 +497,22 @@ interface ContextProps {
  
 
 </details>
-<details open><summary>Improve type safety and state management</summary>
+<details><summary>Improve type safety and state management</summary>
  
 ##  Making the states even more explicit and type-safe
+```ts
+import { Project, ProjectId } from "./project";
+
+export type ProjectViewState =
+    | { type: "NO_SELECTION" }
+    | { type: "ADDING_NEW" }
+    | { type: "SELECTED"; projectId: ProjectId };
+
+export interface ProjectState {
+    viewState: ProjectViewState;
+    projects: Project[];
+}
+```
 1. **Type-Safe View States:**
 
     - Used discriminated unions to make states explicit and type-safe
@@ -538,8 +551,80 @@ interface ContextProps {
  
 
 </details>
+<details open><summary>Local reducer</summary>
+ I added a new component to add tasks to the project app, first my approach was with React.useRef() hook. 
 
+ ```ts
+export default function NewTask() {
+    const { addTask } = useProjects();
+    const entryTaskRef = React.useRef<HTMLInputElement>(null);
+    const handleSave = () => {
+        if (!entryTaskRef.current) return null;
+        const enterTask = entryTaskRef.current.value;
+        addTask({ text: enterTask });
+        entryTaskRef.current.value = "" //DOM manipulation
+    }
+
+    return (
+        <div className="flex gap-4">
+            <Input ref={entryTaskRef} label="Task" props={{ placeholder: "Enter a task" }} />
+            <Button onClick={handleSave} label="Add task" variant="text" />
+        </div>
+    );
+}
+```
+Thou this approach has some advantages like:
+1. Direct DOM manipulation for clearing input
+2. Accessing input value directly
+3. Simple implementation
+
+It's not a recommended solution so I opted for a local reducer
+##  Local reducer tasksReducer manages the input state
+
+```ts
+// Define a local action type for the input
+const enum LocalActionType {
+    SET_TASK_TEXT = "SET_TASK_TEXT",
+    CLEAR_TASK_TEXT = "CLEAR_TASK_TEXT"
+}
+
+// Local reducer for managing input state
+function tasksReducer(state: string, action: { type: LocalActionType, payload?: string }): string {
+    switch (action.type) {
+        case LocalActionType.SET_TASK_TEXT:
+            return action.payload || '';
+        case LocalActionType.CLEAR_TASK_TEXT:
+            return '';
+        default:
+            return state;
+    }
+}
+```
+## Benefits of this Approach:
+
+1. Maintains reducer pattern consistent with your global state management
+2. Uses local reducer for input state management
+3. Keeps the component's state management predictable
+4. Provides flexibility for more complex input state logic
+5. Integrates seamlessly with your existing project structure
+
+**Comparison with Previous Approaches:**
+
+- More aligned with your existing reducer-based architecture
+- Provides more controlled state management than useRef
+- Allows for easy extension of input state logic
+- Keeps the component declarative and type-safe
+
+**The local reducer tasksReducer manages the input state with two actions:**
+
+```ts
+SET_TASK_TEXT: Updates the input text
+CLEAR_TASK_TEXT: Resets the input text
+```
+This solution bridges the gap between the simple useState approach and our existing reducer pattern, providing a clean, predictable way to manage the task input state. 
+
+</details>
 
 ---
 
-[^1]: This course can be found in Udemy website.
+[^1]: This course can be found in Udemy with the title "React - The Complete Guide" *by Maximilian Schwarzmüller*
