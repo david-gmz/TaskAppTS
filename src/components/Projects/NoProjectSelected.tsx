@@ -1,7 +1,7 @@
 
-import noProjectImage from "../assets/logo.png";
-import Button from "./Button";
-import { useProjects } from "../hooks/useProjects";
+import noProjectImage from "../../assets/logo.png";
+import Button from "../Button";
+import { useProjects } from "../../hooks/useProjects";
 export default function NoProjectSelected() {
     const { startAddProject } = useProjects();
     return (

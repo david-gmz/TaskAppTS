@@ -1,4 +1,4 @@
-import { ProjectFields, ProjectId, TaskEntry } from "../types/project";
+import { ProjectFields, ProjectId, TaskEntry, TaskId } from "../types/project";
 
 export const enum ProjectActionType {
     START_ADD = "project/start_add",
@@ -6,7 +6,8 @@ export const enum ProjectActionType {
     ADD = "project/add",
     SELECT = "project/select",
     DELETE = "project/delete",
-    ADD_TASK = "project/add/task"
+    ADD_TASK = "project/add/task",
+    DELETE_TASK = "project/delete/task"
 }
 
 export type ProjectAction =
@@ -15,4 +16,5 @@ export type ProjectAction =
     | { type: ProjectActionType.ADD; payload: ProjectFields }
     | { type: ProjectActionType.SELECT; payload: ProjectId }
     | { type: ProjectActionType.DELETE }
-    | { type: ProjectActionType.ADD_TASK; payload: TaskEntry };
+    | { type: ProjectActionType.ADD_TASK; payload: TaskEntry }
+    | { type: ProjectActionType.DELETE_TASK; payload: TaskId };

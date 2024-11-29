@@ -1,7 +1,7 @@
 
-import NewProject from "./NewProject";
-import NoProjectSelected from "./NoProjectSelected";
-import SelectedProject from "./SelectedProject";
+import NewProject from "./Projects/NewProject";
+import NoProjectSelected from "./Projects/NoProjectSelected";
+import SelectedProject from "./Projects/SelectedProject";
 import { ChildrenRN } from "../types/uiTypes";
 import { useProjects } from "../hooks/useProjects";
 

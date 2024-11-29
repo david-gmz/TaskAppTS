@@ -551,7 +551,7 @@ export interface ProjectState {
  
 
 </details>
-<details open><summary>Local reducer tasksReducer manages the input state</summary>
+<details><summary>Local reducer tasksReducer manages the input state</summary>
  I added a new component to add tasks to the project app, first my approach was with React.useRef() hook. 
 
  ```ts
@@ -624,7 +624,51 @@ CLEAR_TASK_TEXT: Resets the input text
 This solution bridges the gap between the simple useState approach and our existing reducer pattern, providing a clean, predictable way to manage the task input state. 
 
 </details>
+<details open><summary>Interaction Between Global and Local State</summary>
+ 
+##  Principles of State Management:
+
+1. **Global State (Managed by Context/Reducer)**
+
+    - Application-wide UI states
+    - Selected entities (projects, current view)
+    - Persistent data across components
+    - States that multiple components need to access
+
+
+2. **Local State (Managed by Local Reducer/useState)**
+
+    - Form inputs
+    - Temporary UI states specific to a component
+    - Complex logic for a single component
+    - States that don't affect the entire application
+
+
+
+### Benefits of this Approach:
+
+  - Clear separation of concerns
+  - Flexible state management
+  - Easy to track and update application state
+  - Maintains a single source of truth
+  - Allows for complex state interactions
+
+### Interaction Between Global and Local State:
+
+  - Local state can trigger global state updates
+  - Global state can influence local state rendering
+  - Validation and complex logic can be shared
+
+## Recommendations:
+
+1. Keep global state minimal and focused
+2. Use local state for component-specific interactions
+3. Create clear boundaries between global and local state
+4. Use global actions to update view state and trigger global changes
+ 
+
+</details>
 
 ---
 
-[^1]: This course can be found in Udemy with the title "React - The Complete Guide" *by Maximilian Schwarzmüller*
+[^1]: This course is for ReactJS on JS not TypeScript and it can be found in Udemy under the title "React - The Complete Guide" *by Maximilian Schwarzmüller*

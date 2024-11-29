@@ -1,7 +1,7 @@
 
-import Button from "./Button";
-import { useProjects } from "../hooks/useProjects";
-import Tasks from "./Tasks/Tasks";
+import Button from "../Button";
+import { useProjects } from "../../hooks/useProjects";
+import Tasks from "../Tasks/Tasks";
 
 export default function SelectedProject() {
    
@@ -15,7 +15,6 @@ export default function SelectedProject() {
                  day: "numeric"
              }
     );
-    console.log('State: ', selectedProject);
     
      return (
          <div className="w-[35rem] mt-16">

@@ -1,5 +1,5 @@
 import React from "react";
-import { ProjectFields, ProjectId, TaskEntry } from "../types/project";
+import { ProjectFields, ProjectId, TaskEntry, TaskId } from "../types/project";
 import { ProjectActionType } from "../store/actions";
 import { useProjectDispatch, useProjectState } from "./useProjectContext";
 
@@ -50,6 +50,10 @@ export function useProjects() {
         [dispatch]
     );
 
+    const deleteTask = React.useCallback((id: TaskId) => {
+        dispatch({type: ProjectActionType.DELETE_TASK, payload: id})
+    }, [dispatch])
+
     return {
         viewState,
         projects,
@@ -60,6 +64,7 @@ export function useProjects() {
         addProject,
         selectProject,
         deleteProject,
-        addTask
+        addTask,
+        deleteTask
     };
 }

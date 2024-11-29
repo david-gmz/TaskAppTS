@@ -69,6 +69,13 @@ export function projectReducer(
                 tasks: [newTask, ...state.tasks]
             };
         }
+        case ProjectActionType.DELETE_TASK:
+            return {
+                ...state,
+                tasks: state.tasks.filter(
+                    task => task.taskId !== action.payload
+                )
+            };
 
         default:
             return state;
