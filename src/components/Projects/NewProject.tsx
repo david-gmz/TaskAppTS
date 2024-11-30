@@ -3,8 +3,9 @@ import Input from "../Input";
 import Modal from "../Modal";
 import { useProjects } from "../../hooks/useProjects";
 import Button from "../Button";
-import { newdProjectReducer } from "./newProjectReducer";
-import { NewProjectActionType } from "./localAction";
+import { entriesReducer } from "./entriesReducer";
+import { EntriesActionType } from "./localAction";
+import { ProjectFields } from "../../types/project";
 
 const initialState = {
     title: "",
@@ -14,35 +15,27 @@ const initialState = {
 
 export default function NewProject() {
     const { addProject, cancelProject } = useProjects();
-    const [newProjectState, newProjectDispatch] = React.useReducer(
-        newdProjectReducer,
+    const [entriesState, entriesDispatch] = React.useReducer(
+        entriesReducer,
         initialState
     );
     const modal = React.useRef<{ open: () => void } | null>(null);
     const handleSave = () => {
-        if (!newProjectState.title.trim() || !newProjectState.description.trim() || !newProjectState.dueDate.trim()) {
+        if (!entriesState.title.trim() || !entriesState.description.trim() || !entriesState.dueDate.trim()) {
             modal.current!.open();
             return;
         }
         addProject({
-            title: newProjectState.title,
-            description: newProjectState.description,
-            dueDate: newProjectState.dueDate
+            title: entriesState.title,
+            description: entriesState.description,
+            dueDate: entriesState.dueDate
         });
     };
-    const handleChangeText = (e: React.ChangeEvent<HTMLInputElement>) =>
-        newProjectDispatch({
-            type: NewProjectActionType.SET_TITLE,
-            payload: e.target.value
-        });
-    const handleChangeDescription = (e: React.ChangeEvent<HTMLTextAreaElement>) =>
-        newProjectDispatch({
-            type: NewProjectActionType.SET_DESCRIPTION,
-            payload: e.target.value
-        });
-    const handleChangeDueDate = (e: React.ChangeEvent<HTMLInputElement>) =>
-        newProjectDispatch({
-            type: NewProjectActionType.SET_DUE_DATE,
+    const handleChange = (
+        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, field: keyof ProjectFields ) =>
+        entriesDispatch({
+            type: EntriesActionType.UPDATE_ENTRIES,
+            field,
             payload: e.target.value
         });
     return (
@@ -83,8 +76,8 @@ export default function NewProject() {
                             type: "text",
                             name: "title",
                             placeholder: "Enter text",
-                            value: newProjectState.title,
-                            onChange: handleChangeText
+                            value: entriesState.title,
+                            onChange: e => handleChange(e, "title")
                         }}
                     />
                     <Input
@@ -92,8 +85,8 @@ export default function NewProject() {
                         props={{
                             name: "description",
                             placeholder: "Enter your description",
-                            value: newProjectState.description,
-                            onChange: handleChangeDescription
+                            value: entriesState.description,
+                            onChange: e => handleChange(e, "description")
                         }}
                         isTextarea
                     />
@@ -103,8 +96,8 @@ export default function NewProject() {
                         props={{
                             type: "date",
                             name: "dueDate",
-                            value: newProjectState.dueDate,
-                            onChange: handleChangeDueDate
+                            value: entriesState.dueDate,
+                            onChange: e => handleChange(e, "dueDate")
                         }}
                     />
                 </div>
